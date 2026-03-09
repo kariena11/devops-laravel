@@ -1,0 +1,7 @@
+{
+    "name": "kariena/devops-laravel",
+    "description": "Proyek Laravel untuk Praktikum DevOps",
+    "require": {
+        "php": "^7.3|^8.0"
+    }
+}
