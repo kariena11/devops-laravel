@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Create Dev Host
+      file:
+        path: "dev.kelasdevops.xyz"
+        state: touch
+
+    - name: Create Prod Host
+      file:
+        path: "prod.kelasdevops.xyz"
+        state: touch
