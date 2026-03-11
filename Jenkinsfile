@@ -5,11 +5,16 @@ pipeline {
         // Stage Checkout otomatis sudah dilakukan oleh Jenkins di awal
         
         stage('Install Dependencies') {
-            steps {
-                // Gunakan perintah sh biasa
-                sh 'composer install --no-interaction --prefer-dist'
-            }
-        }
+    steps {
+        sh '''
+            # Download composer.phar secara lokal di folder project
+            curl -sS https://getcomposer.org/installer | php
+            
+            # Jalankan instalasi menggunakan php langsung ke file .phar tadi
+            php composer.phar install --no-interaction --prefer-dist
+        '''
+    }
+}
 
         stage('Build & Test') {
             steps {
