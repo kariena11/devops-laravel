@@ -2,10 +2,20 @@ pipeline {
     agent any
 
     stages {
-        stage('Deploy') {
+        stage('Install Dependencies') {
             steps {
-                // Menggunakan cp karena rsync tidak terinstall di Jenkins
-                sh 'cp -r . /home/kariena/devops-laravel/prod'
+                // Kita abaikan composer di dalam Jenkins karena container-mu minimalis
+                echo 'Skipping composer inside Jenkins container...'
+            }
+        }
+        stage('Deploy to Prod') {
+            steps {
+                // Kita copy file ke folder yang bisa diakses Jenkins
+                // Lalu kita sinkronkan ke folder prod di server
+                sh '''
+                cp -r . /var/jenkins_home/workspace/laravel-dev-deploy
+                sudo cp -r /var/jenkins_home/workspace/laravel-dev/. /home/kariena/devops-laravel/prod/
+                '''
             }
         }
     }
