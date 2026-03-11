@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('Deploy') {
             steps {
-                // Langsung kirim file tanpa proses build di Jenkins
-                sh 'rsync -avz --exclude=".git" . /home/kariena/devops-laravel/prod'
+                // Menggunakan cp karena rsync tidak terinstall di Jenkins
+                sh 'cp -r . /home/kariena/devops-laravel/prod'
             }
         }
     }
