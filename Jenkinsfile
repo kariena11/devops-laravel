@@ -1,22 +1,21 @@
 pipeline {
-    agent any
+    agent any 
 
     stages {
-        stage('Checkout') {
+        // Stage Checkout otomatis sudah dilakukan oleh Jenkins di awal
+        
+        stage('Install Dependencies') {
             steps {
-                git 'https://github.com/kariena11/devops-laravel.git'
+                // Gunakan perintah sh biasa
+                sh 'composer install --no-interaction --prefer-dist'
             }
         }
 
-        stage('Install') {
+        stage('Build & Test') {
             steps {
-                sh 'composer install'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'php artisan config:cache'
+                sh 'cp .env.example .env'
+                sh 'php artisan key:generate'
+                // Tambahkan perintah testing jika ada, misal: ./vendor/bin/phpunit
             }
         }
     }
